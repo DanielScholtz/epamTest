@@ -1,10 +1,24 @@
 package com.epam.automation;
 
+import com.epam.automation.enums.Menu;
 import org.testng.annotations.Test;
 
 public class careerTest extends inside{
+
     @Test
-    public void searchForJob() throws InterruptedException {
+    public void navigationTest() {
+        navigation(Menu.WHAT_WE_DO);
+        navigation(Menu.ABOUT);
+        navigation(Menu.HOW_WE_DO_IT);
+        navigation(Menu.INSIGHTS);
+        navigation(Menu.OUR_WORK);
+        navigation(Menu.CAREER);
+    }
+
+
+    @Test
+    public void searchForJob() {
+        navigation(Menu.CAREER);
         keywords("Test Automation");
         country("Hungary");
         city("Debrecen");
@@ -12,12 +26,13 @@ public class careerTest extends inside{
         skills("Software Test Engineering");
         searchButton();
         checkingResult("Currently we are looking for a Test Automation Engineer for our Debrecen office to make the team even stronger.");
-        Thread.sleep(1000);
+        showJobsWithLocation();
     }
 
 
     @Test
-    public void searchForJob2() throws InterruptedException {
+    public void searchForJob2() {
+        navigation(Menu.CAREER);
         keywords("Developer");
         country("Poland");
         city("Katowice");
@@ -25,21 +40,21 @@ public class careerTest extends inside{
         skills("Software Engineering");
         skills("Software Architecture");
         searchButton();
-        checkingResult("Currently we are looking for a .NET (Azure) Developer for our Katowice office to make the team even stronger.");
-        Thread.sleep(1000);
+        checkingResult("Currently we are looking for a Lead .NET Web Developer for our Katowice office to make the team even stronger.");
+        showJobsWithLocation();
     }
 
     @Test
-    public void searchForJob3() throws InterruptedException {
+    public void searchForJob3() {
+        navigation(Menu.CAREER);
         keywords("Manager");
         country("United States");
         city("USA");
         searchButton();
-        Thread.sleep(1000);
         checkingResult("Manager-Intelligent Automation (RPA)-Business Consulting");
         checkingResult("USA");
         checkingResult("Hot");
         checkingResult("You are strategic, resilient, engaging with people and a natural self-starter.");
-        Thread.sleep(1000);
+        showJobsWithLocation();
     }
 }

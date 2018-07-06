@@ -1,11 +1,15 @@
 package com.epam.automation;
 
+import com.epam.automation.enums.Menu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class inside {
     public WebDriver driver;
@@ -14,7 +18,13 @@ public class inside {
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
-        driver.get("https://www.epam.com/careers");
+        driver.get("https://www.epam.com");
+        System.out.println(driver.getTitle());
+    }
+
+    public void navigation(String Menu) {
+        driver.findElement(By.xpath("//a[@href='"+Menu+"']")).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.getTitle());
     }
 
@@ -47,6 +57,23 @@ public class inside {
 
     public void searchButton() {
         driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/div[3]/button")).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    public void showJobsWithLocation() {
+        String jobs = "";
+        String loc = "";
+        String isHot = "";
+        List<WebElement> job = driver.findElements(By.className("search-result__item-name"));
+        for(WebElement ele : job ) {
+            jobs = ele.getText();
+
+            List<WebElement> location = driver.findElements(By.className("search-result__location"));
+            for (WebElement ele2 : location) {
+                loc = ele2.getText();
+            }
+            System.out.println(jobs + " " + loc+" "+isHot);
+        }
     }
 
     public void checkingResult(String text) {
