@@ -25,7 +25,7 @@ public class inside {
     }
 
     public void navigation(String Menu) {
-        driver.findElement(By.xpath("//a[@href='"+Menu+"']")).click();
+        driver.findElement(By.xpath("//a[@href='" + Menu + "']")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.getTitle());
     }
@@ -38,10 +38,10 @@ public class inside {
     public void location(String country, String city) {
         driver.findElement(By.xpath("//*[starts-with(@id,'select-box-location-')]")).click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
-        if(city == country) {
-            driver.findElement(By.xpath("//*[contains(@id, 'all_"  + city + "')]")).click();
+        if (city == country) {
+            driver.findElement(By.xpath("//*[contains(@id, 'all_" + city + "')]")).click();
         } else {
-            driver.findElement(By.xpath("//*[contains(@id, '"  + city + "')]")).click();
+            driver.findElement(By.xpath("//*[contains(@id, '" + city + "')]")).click();
         }
     }
 
@@ -65,14 +65,14 @@ public class inside {
         String loc = "";
         String isHot = "";
         List<WebElement> job = driver.findElements(By.className("search-result__item-name"));
-        for(WebElement ele : job ) {
+        for (WebElement ele : job) {
             jobs = ele.getText();
 
             List<WebElement> location = driver.findElements(By.className("search-result__location"));
             for (WebElement ele2 : location) {
                 loc = ele2.getText();
             }
-            System.out.println(jobs + " " + loc+" "+isHot);
+            System.out.println(jobs + " " + loc + " " + isHot);
         }
     }
 

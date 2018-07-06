@@ -3,7 +3,7 @@ package com.epam.automation;
 import com.epam.automation.enums.Menu;
 import org.testng.annotations.Test;
 
-public class careerTest extends inside{
+public class careerTest extends inside {
 
     @Test
     public void navigationTest() {
