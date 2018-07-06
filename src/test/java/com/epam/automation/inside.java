@@ -63,7 +63,6 @@ public class inside {
     public void showJobsWithLocation() {
         String jobs = "";
         String loc = "";
-        String isHot = "";
         List<WebElement> job = driver.findElements(By.className("search-result__item-name"));
         for (WebElement ele : job) {
             jobs = ele.getText();
@@ -72,7 +71,7 @@ public class inside {
             for (WebElement ele2 : location) {
                 loc = ele2.getText();
             }
-            System.out.println(jobs + " " + loc + " " + isHot);
+            System.out.println(jobs + " " + loc);
         }
     }
 
