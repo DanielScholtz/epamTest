@@ -19,7 +19,7 @@ public class inside {
     }
 
     public void keywords(String message) {
-        WebElement keyword = driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/label/input"));
+        WebElement keyword = driver.findElement(By.xpath("//*[starts-with(@class, 'job-search__input')]"));
         keyword.sendKeys(message);
     }
 
