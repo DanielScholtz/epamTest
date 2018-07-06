@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class inside {
     public WebDriver driver;
 
-    @BeforeMethod
+    @BeforeClass
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
@@ -33,18 +35,16 @@ public class inside {
         keyword.sendKeys(message);
     }
 
-    public void country(String country) {
+    public void location(String country, String city) {
         driver.findElement(By.xpath("//*[starts-with(@id,'select-box-location-')]")).click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
-    }
-
-    public void city(String city) {
-        if(city.toLowerCase() == "all") {
+        if(city == country) {
             driver.findElement(By.xpath("//*[contains(@id, 'all_"  + city + "')]")).click();
         } else {
             driver.findElement(By.xpath("//*[contains(@id, '"  + city + "')]")).click();
         }
     }
+
 
     public void openSkillTab() {
         driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/div[2]/div/div[1]/div[1]")).click();
@@ -81,7 +81,7 @@ public class inside {
     }
 
 
-    @AfterMethod
+    @AfterClass
     public void closePage() {
         driver.close();
     }

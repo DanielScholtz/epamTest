@@ -20,8 +20,7 @@ public class careerTest extends inside{
     public void searchForJob() {
         navigation(Menu.CAREER);
         keywords("Test Automation");
-        country("Hungary");
-        city("Debrecen");
+        location("Hungary", "Debrecen");
         openSkillTab();
         skills("Software Test Engineering");
         searchButton();
@@ -34,8 +33,7 @@ public class careerTest extends inside{
     public void searchForJob2() {
         navigation(Menu.CAREER);
         keywords("Developer");
-        country("Poland");
-        city("Katowice");
+        location("Poland", "Katowice");
         openSkillTab();
         skills("Software Engineering");
         skills("Software Architecture");
@@ -48,8 +46,7 @@ public class careerTest extends inside{
     public void searchForJob3() {
         navigation(Menu.CAREER);
         keywords("Manager");
-        country("United States");
-        city("USA");
+        location("United States", "USA");
         searchButton();
         checkingResult("Manager-Intelligent Automation (RPA)-Business Consulting");
         checkingResult("USA");
