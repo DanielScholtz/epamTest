@@ -27,6 +27,8 @@ public class inside {
     }
 
     public void navigation(String Menu) {
+        // menüpontokra tud lépni enumból kiszedett címekkel, almenüket jelenleg nem raktam bele
+        // az oldal sikeres betöltését azzal ellenőrzi, hogy megjelent e a bal felső sarokban lévő epam logó
         driver.findElement(By.xpath("//a[@href='" + Menu + "']")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.getTitle());
@@ -40,6 +42,8 @@ public class inside {
     }
 
     public void location(String country, String city) {
+        // ország, város kiválasztása, ha a városhoz ugyanazt írjuk, mint az ország, akkor az országban lévő összes munkát kilistázza
+        // (ez alól kivétel Amerika, ahol USA-t kell írni az ország ismétlése helyett)
         driver.findElement(By.xpath("//*[starts-with(@id,'select-box-location-')]")).click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
         if (city == country) {
@@ -65,6 +69,7 @@ public class inside {
     }
 
     public void showJobsWithLocation() {
+        //kilistázza a munkákat munkavégzés helyével együtt
         String jobs = "";
         String loc = "";
         List<WebElement> job = driver.findElements(By.className("search-result__item-name"));
@@ -88,11 +93,14 @@ public class inside {
 
         for (WebElement element : allElements) {
             String idList = element.getAttribute("href");
+            //feltételeztem, hogy id szerint csökkenő sorrend lenne, ezzel ellenőrízhető a dátum szerinti sorrend, de vannak régebbi jobok
+            // amik frissítve lettek, így id szerint kisebbek, de mégis fentebb kerültek
             System.out.println(idList);
         }
     }
 
     public void checkingResult(String text) {
+        //megkeresi az oldalon található szövegben, hogy pontos-e a találat
         assert driver.getPageSource().contains(text);
     }
 
