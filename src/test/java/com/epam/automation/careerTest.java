@@ -51,7 +51,7 @@ public class careerTest extends inside {
     }
 
     @Test
-    public void sortByDate() throws InterruptedException {
+    public void sortByDate() {
         navigation(Menu.CAREER);
         searchButton();
         sortJobsByDate();
