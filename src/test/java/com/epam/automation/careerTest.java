@@ -16,6 +16,13 @@ public class careerTest extends inside {
     }
 
     @Test
+    public void searchButtonTest() {
+        navigation(Menu.CAREER);
+        searchButton();
+        checkingResult("Currently we are looking for");
+    }
+
+    @Test
     public void keyWordTest() {
         navigation(Menu.CAREER);
         keywords("Test Automation");
@@ -43,7 +50,12 @@ public class careerTest extends inside {
         checkingResult("Currently we are looking for a .NET");
     }
 
-
+    @Test
+    public void sortByDate() throws InterruptedException {
+        navigation(Menu.CAREER);
+        searchButton();
+        sortJobsByDate();
+    }
 
 
     @Test

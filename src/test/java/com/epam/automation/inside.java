@@ -1,6 +1,7 @@
 package com.epam.automation;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -75,6 +76,19 @@ public class inside {
                 loc = ele2.getText();
             }
             System.out.println(jobs + " " + loc);
+        }
+    }
+
+    public void sortJobsByDate() {
+        driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[1]/section/header/div/ul/li[2]")).click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        List<WebElement> allElements = driver.findElements(
+                By.className("search-result__item-name")
+        );
+
+        for (WebElement element : allElements) {
+            String idList = element.getAttribute("href");
+            System.out.println(idList);
         }
     }
 
