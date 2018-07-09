@@ -1,22 +1,23 @@
 package com.epam.automation;
 
-import com.epam.automation.enums.Menu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.*;
+
 public class inside {
     public WebDriver driver;
 
-    @BeforeClass
+    @BeforeMethod
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
@@ -28,6 +29,8 @@ public class inside {
         driver.findElement(By.xpath("//a[@href='" + Menu + "']")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.getTitle());
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        assertTrue(driver.findElement(By.xpath("//*[contains(@src, 'logo_white-blue.svg')]")).isDisplayed());
     }
 
     public void keywords(String message) {
@@ -80,7 +83,7 @@ public class inside {
     }
 
 
-    @AfterClass
+    @AfterMethod
     public void closePage() {
         driver.close();
     }

@@ -15,6 +15,36 @@ public class careerTest extends inside {
         navigation(Menu.CAREER);
     }
 
+    @Test
+    public void keyWordTest() {
+        navigation(Menu.CAREER);
+        keywords("Test Automation");
+        searchButton();
+        checkingResult("Currently we are looking for a Test Automation Engineer");
+        showJobsWithLocation();
+    }
+
+    @Test
+    public void locationTest() {
+        navigation(Menu.CAREER);
+        location("Hungary", "Debrecen");
+        searchButton();
+        checkingResult("for our Debrecen office to make the team even stronger.");
+        showJobsWithLocation();
+    }
+
+    @Test
+    public void skillsTest() {
+        navigation(Menu.CAREER);
+        openSkillTab();
+        skills("Software Engineering");
+        skills("Cloud & DevOps");
+        searchButton();
+        checkingResult("Currently we are looking for a .NET");
+    }
+
+
+
 
     @Test
     public void searchForJob() {
