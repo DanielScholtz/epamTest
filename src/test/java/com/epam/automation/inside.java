@@ -93,8 +93,9 @@ public class inside {
 
         for (WebElement element : allElements) {
             String idList = element.getAttribute("href");
-            //feltételeztem, hogy id szerint csökkenő sorrend lenne, ezzel ellenőrízhető a dátum szerinti sorrend, de vannak régebbi jobok
-            // amik frissítve lettek, így habár id szerint kisebbek, de mégis fentebb kerültek
+            /*feltételeztem, hogy id szerint csökkenő sorrend lenne, ezzel ellenőrízhető a dátum szerinti sorrend, de vannak régebbi jobok
+              amik frissítve lettek, így habár id szerint kisebbek, de mégis fentebb kerültek, ezért nem is bontottam tovább substringgal, hogy
+              id-kat hasonlítson össze */
             System.out.println(idList);
         }
     }
