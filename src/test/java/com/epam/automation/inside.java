@@ -44,11 +44,17 @@ public class inside {
     public void location(String country, String city) {
         // ország, város kiválasztása, ha a városhoz ugyanazt írjuk, mint az ország, akkor az országban lévő összes munkát kilistázza
         // (ez alól kivétel Amerika, ahol USA-t kell írni az ország ismétlése helyett)
-        driver.findElement(By.xpath("//*[starts-with(@id,'select-box-location-')]")).click();
-        driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
-        if (city == country) {
+
+        WebElement arrow = driver.findElement(By.xpath("//*[starts-with(@id,'select-box-location-')]"));
+        arrow.click();
+        if (arrow != null) {
+            driver.findElement(By.xpath("//*[contains(@id, '" + city + "')]")).click();
+        }
+        else if (city == country) {
+            driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
             driver.findElement(By.xpath("//*[contains(@id, 'all_" + city + "')]")).click();
         } else {
+            driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
             driver.findElement(By.xpath("//*[contains(@id, '" + city + "')]")).click();
         }
     }
