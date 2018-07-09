@@ -21,6 +21,7 @@ public class inside {
         driver = new FirefoxDriver();
         driver.get("https://www.epam.com");
         System.out.println(driver.getTitle());
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void navigation(String Menu) {
@@ -43,6 +44,7 @@ public class inside {
     public void keywords(String message) {
         WebElement keyword = driver.findElement(By.xpath("//*[starts-with(@class, 'job-search__input')]"));
         keyword.sendKeys(message);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     public void location(String country, String city) {
@@ -51,21 +53,22 @@ public class inside {
         driver.findElement(By.xpath("//*[starts-with(@id,'select-box-location-')]")).click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
         if (city == country) {
-            driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
             driver.findElement(By.xpath("//*[contains(@id, 'all_" + city + "')]")).click();
         } else {
-            driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
             driver.findElement(By.xpath("//*[contains(@id, '" + city + "')]")).click();
         }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
 
     public void openSkillTab() {
         driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/div[2]/div/div[1]/div[1]")).click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     public void skills(String skill) {
         driver.findElement(By.xpath("//*[@class='checkbox-custom-label' and contains(., '" + skill + "')]")).click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     public void searchButton() {
@@ -87,15 +90,16 @@ public class inside {
             }
             System.out.println(jobs + " " + loc);
         }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     public void sortJobsByDate() {
         driver.findElement(By.cssSelector("li.search-result__sorting-item:nth-child(2)")).click();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         List<WebElement> allElements = driver.findElements(
                 By.className("search-result__item-name")
         );
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         for (WebElement element : allElements) {
             String idList = element.getAttribute("href");
             /*feltételeztem, hogy id szerint csökkenő sorrend lenne, ezzel ellenőrízhető a dátum szerinti sorrend, de vannak régebbi jobok
@@ -103,11 +107,13 @@ public class inside {
               id-kat hasonlítson össze */
             System.out.println(idList);
         }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     public void checkingResult(String text) {
         //megkeresi az oldalon található szövegben, hogy pontos-e a találat
         assert driver.getPageSource().contains(text);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
 
