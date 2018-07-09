@@ -1,6 +1,7 @@
 package com.epam.automation;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -62,6 +63,10 @@ public class inside {
 
 
     public void openSkillTab() {
+        /*külön vettem egyelőre a lista megnyitást és a skillek kiválasztását, mert több skill kiválasztása esetén errort ad, mivel 2xer akarja megnyitni.
+        if-el vizsgáltam htmlként, hogy van e függőleges lista megnyitva, de a keywords input rész megzavarja az ajánlott keywords kiegészítésekkel, így
+        false infót ad az állapotról
+        */
         driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/div[2]/div/div[1]/div[1]")).click();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
@@ -93,13 +98,17 @@ public class inside {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    public void sortJobsByDate() {
+    public void sortJobsByDate() throws  Exception {
+    try {
         driver.findElement(By.cssSelector("li.search-result__sorting-item:nth-child(2)")).click();
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        /*egyelőre Thread.sleepet használok, mert az implicitlyWaitnél vagy a sleep nélküli állapotnál folyamatosan
+        StaleElementReferenceException errort kapok. Az oldal az update óta lassan frissíti a munkákat dátum alapján, ezért
+        a listázás közben történt a frissítés, ami errort okoz a tesztben. A try/catch blokkot benne hagytam biztonság kedvéért.
+         */
+        Thread.sleep(1000);
         List<WebElement> allElements = driver.findElements(
                 By.className("search-result__item-name")
         );
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         for (WebElement element : allElements) {
             String idList = element.getAttribute("href");
             /*feltételeztem, hogy id szerint csökkenő sorrend lenne, ezzel ellenőrízhető a dátum szerinti sorrend, de vannak régebbi jobok
@@ -107,8 +116,11 @@ public class inside {
               id-kat hasonlítson össze */
             System.out.println(idList);
         }
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    } catch (Exception e) {
+        System.out.println("error in sortJobsByDate" +e);
     }
+    }
+
 
     public void checkingResult(String text) {
         //megkeresi az oldalon található szövegben, hogy pontos-e a találat

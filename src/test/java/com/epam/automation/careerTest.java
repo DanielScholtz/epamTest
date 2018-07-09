@@ -1,6 +1,7 @@
 package com.epam.automation;
 
 import com.epam.automation.enums.Menu;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 public class careerTest extends inside {
@@ -51,10 +52,11 @@ public class careerTest extends inside {
     }
 
     @Test
-    public void sortByDate() {
+    public void sortByDate() throws Exception {
         navigation(Menu.CAREER);
         searchButton();
         sortJobsByDate();
+
     }
 
 
