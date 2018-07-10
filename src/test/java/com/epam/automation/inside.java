@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -31,6 +33,7 @@ public class inside {
      * @param sortByDate is to reorder the search results by date
      */
 
+    Logger log = LoggerFactory.getLogger(inside.class);
     private WebDriver driver;
     private String country = "";
     private String city = "";
@@ -56,7 +59,7 @@ public class inside {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
         driver.get("https://www.epam.com");
-        System.out.println(driver.getTitle());
+        log.info("Epam website opened");
         PageFactory.initElements(driver, this);
     }
 
@@ -69,7 +72,7 @@ public class inside {
          * since its get the location from our ip address
          */
         driver.findElement(By.xpath("//a[@href='" + Menu + "']")).click();
-        System.out.println(driver.getTitle());
+        log.getName();
         assert(logo.isDisplayed());
         if (Menu.equals(MainMenu.CAREER_MENU)) {
             locationArrow.click();
