@@ -10,11 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class inside {
     /**
@@ -52,7 +51,7 @@ public class inside {
     @FindBy (css = "li.search-result__sorting-item:nth-child(2)")
     private WebElement sortByDate;
 
-    @BeforeMethod
+    @BeforeClass
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
@@ -167,7 +166,7 @@ public class inside {
     }
 
 
-    @AfterMethod
+    @AfterClass
     public void closePage() {
         driver.close();
     }

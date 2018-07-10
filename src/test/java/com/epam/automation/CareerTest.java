@@ -17,7 +17,7 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void searchButtonTest() {
+    public void clickOnSearchButtonTest() {
         navigation(MainMenu.CAREER_MENU);
         clickOnSearchButton();
         checkingResult("Currently we are looking for");
@@ -57,8 +57,7 @@ public class CareerTest extends inside {
         clickOnSearchButton();
         sortJobsByDate();
     }
-
-
+    
     @Test
     public void searchForJob() {
         navigation(MainMenu.CAREER_MENU);
