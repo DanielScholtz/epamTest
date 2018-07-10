@@ -33,7 +33,7 @@ public class inside {
      * @param sortByDate is to reorder the search results by date
      */
 
-    Logger log = LoggerFactory.getLogger(inside.class);
+    private Logger log = LoggerFactory.getLogger(inside.class);
     private WebDriver driver;
     private String country = "";
     private String city = "";
@@ -93,7 +93,7 @@ public class inside {
          */
         locationArrow.click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
-        if (city == country) {
+        if (city.equals(country)) {
             driver.findElement(By.xpath("//*[contains(@id, 'all_" + city + "')]")).click();
         } else {
             driver.findElement(By.xpath("//*[contains(@id, '" + city + "')]")).click();
