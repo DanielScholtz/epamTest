@@ -1,6 +1,7 @@
 package com.epam.automation;
 
 import com.epam.automation.enums.MainMenu;
+import com.epam.automation.pages.inside;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.annotations.Test;
 
@@ -24,7 +25,7 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void keyWordTest() {
+    public void keyWordTestInputTest() {
         navigation(MainMenu.CAREER_MENU);
         keywords("Test Automation");
         clickOnSearchButton();
@@ -33,7 +34,7 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void locationTest() {
+    public void locationTestInputTest() {
         navigation(MainMenu.CAREER_MENU);
         location("Hungary", "Debrecen");
         clickOnSearchButton();
@@ -42,7 +43,7 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void skillsTest() {
+    public void skillsTestInputTest() {
         navigation(MainMenu.CAREER_MENU);
         openSkillTab();
         skills("Software Engineering");
@@ -52,14 +53,14 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void sortByDate() throws StaleElementReferenceException {
+    public void sortByDateTest() throws StaleElementReferenceException {
         navigation(MainMenu.CAREER_MENU);
         clickOnSearchButton();
         sortJobsByDate();
     }
 
     @Test
-    public void searchForJob() {
+    public void searchForTaInDebrecen() {
         navigation(MainMenu.CAREER_MENU);
         keywords("Test Automation");
         location("Hungary", "Debrecen");
@@ -71,7 +72,7 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void searchForJob2() {
+    public void searchForDevInKatowice() {
         navigation(MainMenu.CAREER_MENU);
         keywords("Developer");
         location("Poland", "Katowice");
@@ -84,7 +85,7 @@ public class CareerTest extends inside {
     }
 
     @Test
-    public void searchForJob3() {
+    public void searchForManagerInUSA() {
         navigation(MainMenu.CAREER_MENU);
         keywords("Manager");
         location("United States", "USA");

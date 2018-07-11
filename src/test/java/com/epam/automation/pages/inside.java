@@ -1,4 +1,4 @@
-package com.epam.automation;
+package com.epam.automation.pages;
 
 import com.epam.automation.enums.MainMenu;
 import org.openqa.selenium.By;
@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -30,14 +31,14 @@ public class inside {
      * @param skillsTabArrow to open the skills tab
      * @param searchButton to click the search button
      * @param searchResult for checking the search result
-     * @param sortByDate is to reorder the search results by date
+     * @param sortByDateTest is to reorder the search results by date
      */
 
     private Logger log = LoggerFactory.getLogger(inside.class);
     private WebDriver driver;
+    private WebDriverWait wait;
     private String country = "";
-    private String city = "";
-    @FindBy(xpath = "//*[contains(@src, 'logo_white-blue.svg')]")
+    @FindBy(className = "header__logo")
     private WebElement logo;
     @FindBy(xpath = "//*[starts-with(@id,'select-box-location-')]")
     private WebElement locationArrow;
@@ -58,22 +59,24 @@ public class inside {
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
+        wait = new WebDriverWait(driver,20);
         driver.get("https://www.epam.com");
-        log.info("Epam website opened");
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Navigation between main menus
+     * @param Menu getting a String from enums which refers to a main menu
+     * @param siteTitle gets the Title of the site
+     * Checking the site load correctly with the logo display
+     * with the latest Epam website update we always set the location back to All location by default
+     * since its get the location from our ip address
+     */
     public void navigation(String Menu) {
-        /**
-         * Navigation between main menus
-         * @param Menu getting a String from enums which refers to a main menu
-         * Checking the site load correctly with the logo display
-         * with the latest Epam website update we always set the location back to All location by default
-         * since its get the location from our ip address
-         */
+        String siteTitle = driver.getTitle();
         driver.findElement(By.xpath("//a[@href='" + Menu + "']")).click();
-        log.getName();
-        assert(logo.isDisplayed());
+        log.info(siteTitle);
+        Assert.assertTrue(logo.isDisplayed(), "The page didn't open correctly");
         if (Menu.equals(MainMenu.CAREER_MENU)) {
             locationArrow.click();
             defaultLocation.click();
@@ -84,13 +87,13 @@ public class inside {
         keywordInput.sendKeys(message);
     }
 
+    /**
+     * This method is stands for choosing the location
+     * if we want to list all cities of the country we have to use the same name as the country
+     * there is only one exception
+     * when the country is United States, we should use USA at city variable
+     */
     public void location(String country, String city) {
-        /**
-         * This method is stands for choosing the location
-         * if we want to list all cities of the country we have to use the same name as the country
-         * there is only one exception
-         * when the country is United States, we should use USA at city variable
-         */
         locationArrow.click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
         if (city.equals(country)) {
@@ -101,11 +104,11 @@ public class inside {
     }
 
 
+    /**
+     * Its for opening the skills tab
+     * its useful when choosing more skills and want to avoid errors
+     */
     public void openSkillTab() {
-        /**
-         * Its for opening the skills tab
-         * its useful when choosing more skills and want to avoid errors
-         */
         skillsTabArrow.click();
     }
 
@@ -115,14 +118,13 @@ public class inside {
 
     public void clickOnSearchButton() {
         searchButton.click();
-        WebDriverWait wait =  new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("search-result__item-name")));
     }
 
+    /**
+     * Making a log of jobs with location from search result
+     */
     public void showJobsWithLocation() {
-        /**
-         * Making a log of jobs with location from search result
-         */
         String jobs;
         String loc = "";
         List<WebElement> job = driver.findElements(By.className("search-result__item-name"));
@@ -133,20 +135,19 @@ public class inside {
             for (WebElement ele2 : location) {
                 loc = ele2.getText();
             }
-            System.out.println(jobs + " " + loc);
+            log.info(jobs + " " + loc);
         }
     }
 
+    /**
+     * Sorting the jobs by date
+     * the try/catch block is for not refreshing the page in time
+     * sadly the test cannot be verified from id
+     * because if they update a job it become the newest but with the old id
+     */
     public void sortJobsByDate() throws StaleElementReferenceException {
-        /**
-         * Sorting the jobs by date
-         * the try/catch block is for not refreshing the page in time
-         * sadly the test cannot be verified from id
-         * because if they update a job it become the newest but with the old id
-         */
         try {
             sortByDate.click();
-            WebDriverWait wait =  new WebDriverWait(driver,20);
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("li.search-result__sorting-item:nth-child(1)")));
             List<WebElement> allElements = driver.findElements(
                     By.className("search-result__item-name")
@@ -161,10 +162,10 @@ public class inside {
     }
 
 
+    /**
+     * Checking if the search result is correct by the description of the job
+     */
     public void checkingResult(String text) {
-        /**
-         * Checking if the search result is correct by the description of the job
-         */
         assert driver.getPageSource().contains(text);
     }
 
