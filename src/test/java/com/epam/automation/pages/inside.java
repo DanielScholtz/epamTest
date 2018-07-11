@@ -44,11 +44,11 @@ public class inside {
     private WebElement locationArrow;
     @FindBy (xpath = "//*[contains(@id, 'all_locations')]")
     private WebElement defaultLocation;
-    @FindBy (xpath = "//*[starts-with(@class, 'job-search__input')]")
+    @FindBy (css = "div.job-search-ui:nth-child(4) > form:nth-child(1) > div:nth-child(1) > label:nth-child(1) > input:nth-child(2)")
     private WebElement keywordInput;
-    @FindBy (xpath =  "/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/div[2]/div/div[1]/div[1]")
+    @FindBy (css =  "div.job-search-ui:nth-child(4) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > div:nth-child(1)")
     private WebElement skillsTabArrow;
-    @FindBy (xpath = "/html/body/div[1]/div[3]/div[1]/div[1]/section/div/div[4]/form/div/div[3]/button")
+    @FindBy (className = "job-search__submit")
     private WebElement searchButton;
     @FindBy (className = "search-result__item-name")
     private WebElement searchResult;
@@ -59,7 +59,7 @@ public class inside {
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
-        wait = new WebDriverWait(driver,20);
+        wait = new WebDriverWait(driver,10);
         driver.get("https://www.epam.com");
         PageFactory.initElements(driver, this);
     }
@@ -154,10 +154,10 @@ public class inside {
             );
             for (WebElement element : allElements) {
                 String idList = element.getAttribute("href");
-                System.out.println(idList);
+                log.info(idList);
             }
         } catch (StaleElementReferenceException e) {
-            System.out.println("error in sortJobsByDate" +e);
+            log.error("error in sortJobsByDate", e);
         }
     }
 

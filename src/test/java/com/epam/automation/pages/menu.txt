@@ -1,0 +1,6 @@
+WHAT_WE_DO_MENU = "/what-we-do";
+HOW_WE_DO_IT_MENU = "/how-we-do-it";
+OUR_WORK_MENU = "/our-work";
+INSIGHTS_MENU = "/insights";
+ABOUT_MENU = "/about";
+CAREER_MENU = "/careers";
