@@ -40,19 +40,19 @@ public class inside {
     private String country = "";
     @FindBy(className = "header__logo")
     private WebElement logo;
-    @FindBy(xpath = "//*[starts-with(@id,'select-box-location-')]")
+    @FindBy(css = "*[id^='select-box-location-'")
     private WebElement locationArrow;
-    @FindBy (xpath = "//*[contains(@id, 'all_locations')]")
+    @FindBy (css = "*[id$='all_locations'")
     private WebElement defaultLocation;
-    @FindBy (css = "div.job-search-ui:nth-child(4) > form:nth-child(1) > div:nth-child(1) > label:nth-child(1) > input:nth-child(2)")
+    @FindBy (css = "input[class^='job-search__input']")
     private WebElement keywordInput;
-    @FindBy (css =  "div.job-search-ui:nth-child(4) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > div:nth-child(1)")
+    @FindBy (css =  "*[class*='selected-params']")
     private WebElement skillsTabArrow;
     @FindBy (className = "job-search__submit")
     private WebElement searchButton;
     @FindBy (className = "search-result__item-name")
     private WebElement searchResult;
-    @FindBy (css = "li.search-result__sorting-item:nth-child(2)")
+    @FindBy (css = "*[data-value*='time']")
     private WebElement sortByDate;
 
     @BeforeClass
