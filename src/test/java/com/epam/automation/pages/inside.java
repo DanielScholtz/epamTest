@@ -83,6 +83,10 @@ public class inside {
         }
     }
 
+    /**
+     * Putting words to the keywords field from the message String
+     * @param message input to the keywords field
+     */
     public void keywords(String message) {
         keywordInput.sendKeys(message);
     }
@@ -121,6 +125,9 @@ public class inside {
         driver.findElement(By.xpath("//*[@class='checkbox-custom-label' and contains(., '" + skill + "')]")).click();
     }
 
+    /**
+     * Clicks on the search button and waits till the search results loaded
+     */
     public void clickOnSearchButton() {
         searchButton.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("search-result__item-name")));
