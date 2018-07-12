@@ -74,7 +74,7 @@ public class inside {
      */
     public void navigation(String Menu) {
         String siteTitle = driver.getTitle();
-        driver.findElement(By.xpath("//a[@href='" + Menu + "']")).click();
+        driver.findElement(By.cssSelector("a[href='" + Menu + "']")).click();
         log.info(siteTitle);
         Assert.assertTrue(logo.isDisplayed(), "The page didn't open correctly");
         if (Menu.equals(MainMenu.CAREER_MENU)) {
@@ -97,9 +97,9 @@ public class inside {
         locationArrow.click();
         driver.findElement(By.cssSelector("[aria-label=\"" + country + "\"]")).click();
         if (city.equals(country)) {
-            driver.findElement(By.xpath("//*[contains(@id, 'all_" + city + "')]")).click();
+            driver.findElement(By.cssSelector("*[id*='" + city + "']")).click();
         } else {
-            driver.findElement(By.xpath("//*[contains(@id, '" + city + "')]")).click();
+            driver.findElement(By.cssSelector("*[id*='" + city + "']")).click();
         }
     }
 
@@ -112,6 +112,11 @@ public class inside {
         skillsTabArrow.click();
     }
 
+
+    /**
+     * It is not possible to use CSSSelector to find a text in a class so I had to use xpath
+     * @param skill to check any skill you need
+     */
     public void skills(String skill) {
         driver.findElement(By.xpath("//*[@class='checkbox-custom-label' and contains(., '" + skill + "')]")).click();
     }
