@@ -21,6 +21,7 @@ import java.util.List;
 public class inside {
     /**
      * There are some Page Objects and contsuctors
+     *
      * @param driver to initalize our browser
      * @param country is here because we use it in more methods
      * @param city is here because we use it in more methods
@@ -42,35 +43,36 @@ public class inside {
     private WebElement logo;
     @FindBy(css = "*[id^='select-box-location-'")
     private WebElement locationArrow;
-    @FindBy (css = "*[id$='all_locations'")
+    @FindBy(css = "*[id$='all_locations'")
     private WebElement defaultLocation;
-    @FindBy (css = "input[class^='job-search__input']")
+    @FindBy(css = "input[class^='job-search__input']")
     private WebElement keywordInput;
-    @FindBy (css =  "*[class*='selected-params']")
+    @FindBy(css = "*[class*='selected-params']")
     private WebElement skillsTabArrow;
-    @FindBy (className = "job-search__submit")
+    @FindBy(className = "job-search__submit")
     private WebElement searchButton;
-    @FindBy (className = "search-result__item-name")
+    @FindBy(className = "search-result__item-name")
     private WebElement searchResult;
-    @FindBy (css = "*[data-value*='time']")
+    @FindBy(css = "*[data-value*='time']")
     private WebElement sortByDate;
 
     @BeforeClass
     public void openBrowser() {
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
         driver = new FirefoxDriver();
-        wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver, 10);
         driver.get("https://www.epam.com");
         PageFactory.initElements(driver, this);
     }
 
     /**
      * Navigation between main menus
-     * @param Menu getting a String from enums which refers to a main menu
+     *
+     * @param Menu      getting a String from enums which refers to a main menu
      * @param siteTitle gets the Title of the site
-     * Checking the site load correctly with the logo display
-     * with the latest Epam website update we always set the location back to All location by default
-     * since its get the location from our ip address
+     *                  Checking the site load correctly with the logo display
+     *                  with the latest Epam website update we always set the location back to All location by default
+     *                  since its get the location from our ip address
      */
     public void navigation(String Menu) {
         String siteTitle = driver.getTitle();
@@ -85,6 +87,7 @@ public class inside {
 
     /**
      * Putting words to the keywords field from the message String
+     *
      * @param message input to the keywords field
      */
     public void keywords(String message) {
@@ -107,7 +110,6 @@ public class inside {
         }
     }
 
-
     /**
      * Its for opening the skills tab
      * its useful when choosing more skills and want to avoid errors
@@ -119,6 +121,7 @@ public class inside {
 
     /**
      * It is not possible to use CSSSelector to find a text in a class so I had to use xpath
+     *
      * @param skill to check any skill you need
      */
     public void skills(String skill) {
@@ -172,7 +175,6 @@ public class inside {
             log.error("error in sortJobsByDate", e);
         }
     }
-
 
     /**
      * Checking if the search result is correct by the description of the job
