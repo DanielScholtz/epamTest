@@ -1,11 +1,16 @@
 package com.epam.automation;
 
 import com.epam.automation.enums.MainMenu;
-import com.epam.automation.pages.inside;
+import com.epam.automation.resources.CareerPage;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-public class CareerTest extends inside {
+public class CareerTest extends CareerPage {
+
+    public CareerTest(WebDriver driver) {
+        super(driver);
+    }
 
     @Test
     public void navigationTest() {
