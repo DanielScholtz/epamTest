@@ -1,10 +1,5 @@
 package com.epam.automation.enums;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
 public enum Skills {
     ;
     public static final String ADMINISTRATIVE_POSITIONS = "Administrative positions";

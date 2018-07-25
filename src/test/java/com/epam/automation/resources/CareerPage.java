@@ -17,8 +17,6 @@ public class CareerPage extends Page {
     private Logger log = LoggerFactory.getLogger(CareerPage.class);
     private WebDriverWait wait = new WebDriverWait(driver, 60);
 
-    @FindBy(css = ".header__logo")
-    public WebElement logo;
     @FindBy(css = "*[id^='select-box-location-'")
     private WebElement locationArrow;
     @FindBy(css = "*[id$='all_locations'")
