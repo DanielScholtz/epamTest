@@ -5,39 +5,24 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class CareerPage extends Page {
-    /**
-     * There are some CareerPage Objects and contsuctors
-     *
-     * @param driver to initalize our browser
-     * @param country is here because we use it in more methods
-     * @param city is here because we use it in more methods
-     * @param logo for checking the site loaded correctly
-     * @param locationArrow opening location tab
-     * @param defaultLocation to select All Location by default
-     * @param keywordsInput to write inputs in the keywords place
-     * @param SkillsTabArrow to open the skills tab
-     * @param searchButton to click the search button
-     * @param searchResult for checking the search result
-     * @param sortByDateTest is to reorder the search results by date
-     */
+    private Logger log = LoggerFactory.getLogger(CareerPage.class);
+    private WebDriverWait wait = new WebDriverWait(driver, 60);
 
-
-    public WebDriver driver;
-    public WebDriverWait wait;
-    private String country = "";
     @FindBy(css = ".header__logo")
     public WebElement logo;
     @FindBy(css = "*[id^='select-box-location-'")
-    public WebElement locationArrow;
+    private WebElement locationArrow;
     @FindBy(css = "*[id$='all_locations'")
-    public WebElement defaultLocation;
+    private WebElement defaultLocation;
     @FindBy(css = "input[class^='job-search__input']")
     private WebElement keywordInput;
     @FindBy(css = "*[class*='selected-params']")
@@ -51,6 +36,10 @@ public class CareerPage extends Page {
 
     public CareerPage(WebDriver driver) {
         super(driver);
+        driver.get("https://www.epam.com/careers");
+        PageFactory.initElements(driver, this);
+        locationArrow.click();
+        defaultLocation.click();
     }
 
     /**
@@ -142,12 +131,5 @@ public class CareerPage extends Page {
         } catch (StaleElementReferenceException e) {
             log.error("error in sortJobsByDate", e);
         }
-    }
-
-    /**
-     * Checking if the search result is correct by the description of the job
-     */
-    public void checkingResult(String text) {
-        assert driver.getPageSource().contains(text);
     }
 }
