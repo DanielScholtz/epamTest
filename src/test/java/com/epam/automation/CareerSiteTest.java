@@ -1,13 +1,11 @@
 package com.epam.automation;
 
 import com.epam.automation.resources.CareerPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CareerSiteTest extends Basic {
-
 
     @Test
     public void clickOnSearchButtonTest() {
