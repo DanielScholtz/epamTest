@@ -1,46 +1,24 @@
-package com.epam.automation.pages;
+package com.epam.automation.resources;
 
-import com.epam.automation.enums.MainMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 
 import java.util.List;
 
-public class inside {
-    /**
-     * There are some Page Objects and contsuctors
-     *
-     * @param driver to initalize our browser
-     * @param country is here because we use it in more methods
-     * @param city is here because we use it in more methods
-     * @param logo for checking the site loaded correctly
-     * @param locationArrow opening location tab
-     * @param defaultLocation to select All Location by default
-     * @param keywordsInput to write inputs in the keywords place
-     * @param skillsTabArrow to open the skills tab
-     * @param searchButton to click the search button
-     * @param searchResult for checking the search result
-     * @param sortByDateTest is to reorder the search results by date
-     */
+public class CareerPage extends Page {
+    private Logger log = LoggerFactory.getLogger(CareerPage.class);
+    private WebDriverWait wait = new WebDriverWait(driver, 60);
 
-    private Logger log = LoggerFactory.getLogger(inside.class);
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private String country = "";
-    @FindBy(className = "header__logo")
-    private WebElement logo;
+    @FindBy(css = ".header__logo")
+    public WebElement logo;
     @FindBy(css = "*[id^='select-box-location-'")
     private WebElement locationArrow;
     @FindBy(css = "*[id$='all_locations'")
@@ -49,40 +27,19 @@ public class inside {
     private WebElement keywordInput;
     @FindBy(css = "*[class*='selected-params']")
     private WebElement skillsTabArrow;
-    @FindBy(className = "job-search__submit")
+    @FindBy(css = ".job-search__submit")
     private WebElement searchButton;
-    @FindBy(className = "search-result__item-name")
+    @FindBy(css = ".search-result__item-name")
     private WebElement searchResult;
     @FindBy(css = "*[data-value*='time']")
     private WebElement sortByDate;
 
-    @BeforeClass
-    public void openBrowser() {
-        System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
-        driver = new FirefoxDriver();
-        wait = new WebDriverWait(driver, 10);
-        driver.get("https://www.epam.com");
+    public CareerPage(WebDriver driver) {
+        super(driver);
+        driver.get("https://www.epam.com/careers");
         PageFactory.initElements(driver, this);
-    }
-
-    /**
-     * Navigation between main menus
-     *
-     * @param Menu      getting a String from enums which refers to a main menu
-     * @param siteTitle gets the Title of the site
-     *                  Checking the site load correctly with the logo display
-     *                  with the latest Epam website update we always set the location back to All location by default
-     *                  since its get the location from our ip address
-     */
-    public void navigation(String Menu) {
-        String siteTitle = driver.getTitle();
-        driver.findElement(By.cssSelector("a[href='" + Menu + "']")).click();
-        log.info(siteTitle);
-        Assert.assertTrue(logo.isDisplayed(), "The page didn't open correctly");
-        if (Menu.equals(MainMenu.CAREER_MENU)) {
-            locationArrow.click();
-            defaultLocation.click();
-        }
+        locationArrow.click();
+        defaultLocation.click();
     }
 
     /**
@@ -111,8 +68,8 @@ public class inside {
     }
 
     /**
-     * Its for opening the skills tab
-     * its useful when choosing more skills and want to avoid errors
+     * Its for opening the Skills tab
+     * its useful when choosing more Skills and want to avoid errors
      */
     public void openSkillTab() {
         skillsTabArrow.click();
@@ -174,18 +131,5 @@ public class inside {
         } catch (StaleElementReferenceException e) {
             log.error("error in sortJobsByDate", e);
         }
-    }
-
-    /**
-     * Checking if the search result is correct by the description of the job
-     */
-    public void checkingResult(String text) {
-        assert driver.getPageSource().contains(text);
-    }
-
-
-    @AfterClass
-    public void closePage() {
-        driver.close();
     }
 }
