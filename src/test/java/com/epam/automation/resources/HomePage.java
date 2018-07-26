@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 public class HomePage extends Page {
+
     public HomePage(WebDriver driver) {
         super(driver);
         driver.get("https://www.epam.com");
